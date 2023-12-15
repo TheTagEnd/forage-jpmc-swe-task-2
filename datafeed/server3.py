@@ -255,13 +255,13 @@ ops = {
 
 class App(object):
     """ The trading game server application. """
-
     def __init__(self):
         self._book_1 = dict()
         self._book_2 = dict()
         self._data_1 = order_book(read_csv(), self._book_1, 'ABC')
         self._data_2 = order_book(read_csv(), self._book_2, 'DEF')
         self._rt_start = datetime.now()
+        # Assuming self._data_1 is a generator
         self._sim_start, _, _ = next(self._data_1)
         self.read_10_first_lines()
 
@@ -339,4 +339,5 @@ if __name__ == '__main__':
     if not os.path.isfile('test.csv'):
         print("No data found, generating...")
         generate_csv()
-    run(App())
+    app_instance = App()
+    run(app_instance)
